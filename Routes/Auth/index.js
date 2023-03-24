@@ -18,7 +18,7 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
           token: null,
         });
       }
-      res.redirect(`http://localhost:5000?token=${token}`);
+      res.redirect(`https://art-island.vercel.app/?token=${token}`);
     }
   );
 })
