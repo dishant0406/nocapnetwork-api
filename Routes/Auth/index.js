@@ -7,6 +7,8 @@ const router = Router()
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 
+const env = process.env.NODE_ENV || 'development';
+
 router.get('/google/callback', passport.authenticate('google', { session: false }), (req, res) => {
   jwt.sign(
     { user: req.user },
@@ -17,6 +19,9 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
         return res.json({
           token: null,
         });
+      }
+      if (env === 'development') {
+        return res.redirect(`http://localhost:5000/?token=${token}`);
       }
       res.redirect(`https://art-island.vercel.app/?token=${token}`);
     }
