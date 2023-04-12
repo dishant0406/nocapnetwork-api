@@ -13,6 +13,7 @@ const passportConfig = (passport) => {
   },
     async (request, accessToken, refreshToken, profile, done) => {
       try {
+        console.log(profile)
         let existingUser = await User.findOne({ 'google.id': profile.id });
         if (existingUser) {
           return done(null, existingUser);
@@ -23,7 +24,8 @@ const passportConfig = (passport) => {
           google: {
             id: profile.id,
             name: profile.displayName,
-            email: profile.emails[0].value
+            email: profile.email,
+            profilePic: profile.picture
           }
         });
         await newUser.save();

@@ -13,7 +13,7 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
   jwt.sign(
     { user: req.user },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" },
+    { expiresIn: '3d' },
     (err, token) => {
       if (err) {
         return res.json({
@@ -27,6 +27,7 @@ router.get('/google/callback', passport.authenticate('google', { session: false 
     }
   );
 })
+
 
 
 export default router
